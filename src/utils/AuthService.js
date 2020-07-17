@@ -4,11 +4,10 @@ import auth0 from 'auth0-js';
 const ID_TOKEN_KEY = 'id_token';
 const ACCESS_TOKEN_KEY = 'access_token';
 
-const CLIENT_ID = '{AUTH0_CLIENT_ID}';
-const CLIENT_DOMAIN = '{AUTH0_DOMAIN}';
-const REDIRECT = 'YOUR_CALLBACK_URL';
-const SCOPE = '{SCOPE}';
-const AUDIENCE = 'AUDIENCE_ATTRIBUTE';
+const CLIENT_ID = '3W1jN1zD8n8yLVfJAETW54WBLVkvWGy8';
+const CLIENT_DOMAIN = 'andynguyen.auth0.com';
+const REDIRECT = 'http://localhost:3000/callback';
+const AUDIENCE = 'http://chuck.world.com';
 
 var auth = new auth0.WebAuth({
   clientID: CLIENT_ID,
@@ -19,8 +18,7 @@ export function login() {
   auth.authorize({
     responseType: 'token id_token',
     redirectUri: REDIRECT,
-    audience: AUDIENCE,
-    scope: SCOPE
+    audience: AUDIENCE
   });
 }
 
@@ -54,6 +52,7 @@ function clearAccessToken() {
 
 // Helper function that will allow us to extract the access_token and id_token
 function getParameterByName(name) {
+  console.log(`this is the hash: ${window.location.hash}`)
   let match = RegExp('[#&]' + name + '=([^&]*)').exec(window.location.hash);
   return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
 }
